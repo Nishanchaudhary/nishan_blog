@@ -1,0 +1,107 @@
+
+{% extends "layout/base.html" %}
+
+{% block title %}Privacy Policy | {{ block.super }}{% endblock %}
+
+{% block content %}
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <!-- Header -->
+        <header class="text-center mb-10 pb-8 border-b border-gray-200">
+            <h1 class="text-4xl font-bold text-gray-800 mb-2"><span class="gradient-text">Nishan_Blog</span></h1>
+            <p class="text-xl text-gray-500 italic mb-4">Share Your Story With The World</p>
+            <p class="text-lg text-gray-500 italic">Join thousands of writers sharing their knowledge, experiences, and creativity on our beautiful platform.</p>
+        </header>
+
+        <!-- Privacy Policy Content -->
+        <div class="prose prose-lg max-w-none">
+            <h1 class="text-3xl font-bold text-gray-800 mb-6">Privacy Policy</h1>
+            
+            <p class="text-gray-600 mb-8">Last Updated: <span id="current-date" class="font-medium"></span></p>
+            
+            <p class="mb-6">Welcome to Nishan_Blog ("we," "our," or "us"). We are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website and use our services.</p>
+            
+            <h2 class="text-2xl font-semibold text-gray-800 mt-10 mb-4">1. Information We Collect</h2>
+            
+            <h3 class="text-xl font-medium text-gray-700 mt-6 mb-3">Personal Information</h3>
+            <p class="mb-4">When you register an account, create content, or interact with our platform, we may collect:</p>
+            <ul class="list-disc pl-6 mb-6 space-y-2">
+                <li>Name and contact information (email address)</li>
+                <li>Username and profile information</li>
+                <li>Content you create (blog posts, comments, etc.)</li>
+                <li>Payment information (for premium services, if applicable)</li>
+            </ul>
+            
+            <h3 class="text-xl font-medium text-gray-700 mt-6 mb-3">Automatically Collected Information</h3>
+            <p class="mb-4">We automatically collect certain information when you visit our website:</p>
+            <ul class="list-disc pl-6 mb-6 space-y-2">
+                <li>IP address and device information</li>
+                <li>Browser type and operating system</li>
+                <li>Usage data (pages visited, time spent, etc.)</li>
+                <li>Cookies and similar tracking technologies</li>
+            </ul>
+            
+            <h2 class="text-2xl font-semibold text-gray-800 mt-10 mb-4">2. How We Use Your Information</h2>
+            <p class="mb-4">We use the information we collect to:</p>
+            <ul class="list-disc pl-6 mb-6 space-y-2">
+                <li>Provide, operate, and maintain our platform</li>
+                <li>Improve, personalize, and expand our services</li>
+                <li>Understand and analyze how you use our platform</li>
+                <li>Develop new products, services, features, and functionality</li>
+                <li>Communicate with you for customer service, updates, and marketing</li>
+                <li>Prevent fraud and enhance security</li>
+                <li>Comply with legal obligations</li>
+            </ul>
+            
+            <h2 class="text-2xl font-semibold text-gray-800 mt-10 mb-4">3. Sharing Your Information</h2>
+            <p class="mb-4">We may share your information in the following situations:</p>
+            <ul class="list-disc pl-6 mb-6 space-y-2">
+                <li><strong>With your consent:</strong> We may disclose your information when you give us permission</li>
+                <li><strong>Service providers:</strong> Third parties who assist in operating our platform</li>
+                <li><strong>Legal requirements:</strong> When required by law or to protect our rights</li>
+                <li><strong>Business transfers:</strong> In connection with a merger, acquisition, or sale of assets</li>
+            </ul>
+            
+            <h2 class="text-2xl font-semibold text-gray-800 mt-10 mb-4">4. Cookies and Tracking Technologies</h2>
+            <p class="mb-4">We use cookies and similar tracking technologies to:</p>
+            <ul class="list-disc pl-6 mb-6 space-y-2">
+                <li>Remember your preferences</li>
+                <li>Analyze site traffic and usage patterns</li>
+                <li>Deliver personalized content and ads</li>
+            </ul>
+            <p class="mb-6">You can control cookies through your browser settings, but disabling them may affect your experience.</p>
+            
+            <h2 class="text-2xl font-semibold text-gray-800 mt-10 mb-4">5. Data Security</h2>
+            <p class="mb-6">We implement appropriate security measures to protect your personal information. However, no internet transmission or electronic storage is completely secure.</p>
+            
+            <h2 class="text-2xl font-semibold text-gray-800 mt-10 mb-4">6. Your Privacy Rights</h2>
+            <p class="mb-4">Depending on your location, you may have rights to:</p>
+            <ul class="list-disc pl-6 mb-6 space-y-2">
+                <li>Access, update, or delete your information</li>
+                <li>Object to or restrict processing of your data</li>
+                <li>Data portability</li>
+                <li>Withdraw consent</li>
+            </ul>
+            <p class="mb-6">To exercise these rights, please contact us at <a href="mailto:privacy@nishanblog.com" class="text-blue-600 hover:text-blue-800 hover:underline">privacy@nishanblog.com</a>.</p>
+            
+            <h2 class="text-2xl font-semibold text-gray-800 mt-10 mb-4">7. Children's Privacy</h2>
+            <p class="mb-6">Our platform is not intended for children under 13. We do not knowingly collect personal information from children under 13.</p>
+            
+            <h2 class="text-2xl font-semibold text-gray-800 mt-10 mb-4">8. Changes to This Policy</h2>
+            <p class="mb-6">We may update this Privacy Policy periodically. We will notify you of changes by posting the new policy on this page.</p>
+            
+            <h2 class="text-2xl font-semibold text-gray-800 mt-10 mb-4">9. Contact Us</h2>
+            <p class="mb-6">If you have questions about this Privacy Policy, please contact us at:</p>
+            <p class="mb-10">Email: <a href="mailto:privacy@nishanblog.com" class="text-blue-600 hover:text-blue-800 hover:underline">privacy@nishanblog.com</a></p>
+            
+            <div class="text-sm text-gray-500 text-right mt-12">Last updated: <span id="current-date-footer"></span></div>
+        </div>
+    </div>
+
+    <script>
+        // Set current date
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        const currentDate = new Date().toLocaleDateString('en-US', options);
+        document.getElementById('current-date').textContent = currentDate;
+        document.getElementById('current-date-footer').textContent = currentDate;
+    </script>
+{% endblock %}

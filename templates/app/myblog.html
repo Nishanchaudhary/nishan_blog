@@ -1,0 +1,107 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}My Blogs{% endblock %}
+
+{% block content %}
+
+<!-- My Blogs Section -->
+<section class="py-16" id="my-blogs">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">My Blog Posts</h2>
+            <p class="text-gray-600 max-w-2xl mx-auto">Here are all the blogs you've created.</p>
+        </div>
+        
+        {% if messages %}
+            {% for message in messages %}
+                <div class="mb-4 p-4 text-center {% if message.tags %}{{ message.tags }}{% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for blog in page_obj %}
+            <article class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300">
+                {% if blog.image %}
+                <img src="{{ blog.image.url }}" alt="{{ blog.title }}" class="w-full h-48 object-cover">
+                {% else %}
+                <img src="https://source.unsplash.com/random/600x400/?{{ blog.category|lower }}" alt="{{ blog.title }}" class="w-full h-48 object-cover">
+                {% endif %}
+                <div class="p-6">
+                    <div class="flex justify-between items-start mb-2">
+                        <span class="px-2 py-1 text-xs font-semibold 
+                            {% if blog.category == 'Technology' %}bg-gray-100 text-gray-800
+                            {% elif blog.category == 'Travel' %}bg-green-100 text-green-800
+                            {% elif blog.category == 'Food' %}bg-red-100 text-red-800
+                            {% else %}bg-blue-100 text-blue-800{% endif %} rounded-full">
+                            {{ blog.category }}
+                        </span>
+                        <span class="text-xs text-gray-500">{{ blog.created_at|date:"M d, Y" }}</span>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2 hover:text-green-600 transition duration-300">
+                        <a href="{% url 'blog_detail' blog.id %}">{{ blog.title }}</a>
+                    </h3>
+                    <p class="text-gray-600 text-sm mb-4">{{ blog.content|truncatewords:15 }}</p>
+                    <div class="flex justify-between items-center">
+                        <div class="flex space-x-2">
+                            <a href="{% url 'blog_detail' blog.id %}" class="text-green-500 hover:text-green-600 font-medium transition duration-300">
+                                Read
+                            </a>
+                            <a href="{% url 'edit_blog' blog.id %}" class="text-blue-500 hover:text-blue-600 font-medium transition duration-300">
+                                Edit
+                            </a>
+                            <a href="{% url 'delete_blog' blog.id %}" class="text-red-500 hover:text-red-600 font-medium transition duration-300">
+                                Delete
+                            </a>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <span class="text-xs text-gray-500">{{ blog.likes.count }} likes</span>
+                            <span class="text-xs text-gray-500">{{ blog.comments.count }} comments</span>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            {% empty %}
+            <div class="col-span-3 text-center py-10">
+                <p class="text-gray-500 text-lg">You haven't created any blogs yet.</p>
+                <a href="{% url 'create_blog' %}" class="mt-4 inline-block bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition duration-300">
+                    Create Your First Blog
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+        
+        {% if page_obj.paginator.num_pages > 1 %}
+        <div class="mt-12 flex justify-center">
+            <nav class="inline-flex rounded-md shadow">
+                {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}" class="inline-flex items-center px-3 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                    Previous
+                </a>
+                {% endif %}
+                
+                {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                    <a href="?page={{ num }}" class="inline-flex items-center px-3 py-2 border border-gray-300 bg-green-500 text-white text-sm font-medium">
+                        {{ num }}
+                    </a>
+                    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                    <a href="?page={{ num }}" class="inline-flex items-center px-3 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                        {{ num }}
+                    </a>
+                    {% endif %}
+                {% endfor %}
+                
+                {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}" class="inline-flex items-center px-3 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                    Next
+                </a>
+                {% endif %}
+            </nav>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+{% endblock %}

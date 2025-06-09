@@ -1,0 +1,181 @@
+{% extends "layout/base.html" %}
+{% load static %}
+
+{% block title %}Home - My Blog{% endblock %}
+
+{% block content %}
+
+  <!-- Hero Section -->
+    <section class="relative bg-gradient-to-br from-primary-700 to-primary-900 text-white overflow-hidden">
+        <div class="absolute inset-0 opacity-20">
+            <div class="absolute inset-0 bg-[url('https://source.unsplash.com/random/1600x900/?abstract')] bg-cover bg-center parallax-bg"></div>
+        </div>
+        
+        <div class="relative container mx-auto px-4 py-24 sm:py-32 lg:py-40">
+            <div class="max-w-3xl mx-auto text-center">
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+                    <span class="gradient-text">Share Your Story</span> With The World
+                </h1>
+                <p class="text-xl sm:text-2xl text-primary-100 max-w-2xl mx-auto mb-10">
+                    Join thousands of writers sharing their knowledge, experiences, and creativity on our beautiful platform.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <a href="/register" class="px-8 py-4 bg-white text-primary-700 font-bold rounded-lg shadow-lg hover:bg-gray-100 hover:shadow-xl transition-all transform hover:scale-105">
+                        Start Writing Now
+                    </a>
+                    <a href="#featured" class="px-8 py-4 border-2 border-white text-white font-bold rounded-lg hover:bg-white/10 transition-all">
+                        Explore Articles
+                    </a>
+                </div>
+            </div>
+            
+            <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+                <a href="#featured" class="text-white text-2xl scroll-indicator">
+                    <i class="fas fa-chevron-down"></i>
+                </a>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-gray-50 to-transparent"></div>
+    </section>
+
+<!-- Featured Posts Section -->
+<section class="py-16 bg-gray-50" id="featured">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-16">
+            <span class="inline-block px-3 py-1 text-sm font-semibold text-green-600 bg-green-100 rounded-full mb-4">Featured Content</span>
+            <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Discover Our Latest Stories</h2>
+            <p class="text-lg text-gray-600 max-w-2xl mx-auto">Explore thought-provoking articles from our community of writers</p>
+        </div>
+        
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for blog in blogs|slice:":3" %}
+            <article class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition duration-300">
+                <div class="relative">
+                    {% if blog.image %}
+                    <img src="{{ blog.image.url }}" alt="{{ blog.title }}" class="w-full h-64 object-cover">
+                    {% else %}
+                    <img src="https://source.unsplash.com/random/600x400/?{{ blog.category|lower }}" alt="{{ blog.title }}" class="w-full h-64 object-cover">
+                    {% endif %}
+                    <div class="absolute top-4 left-4">
+                        <span class="px-3 py-1 text-xs font-semibold text-white 
+                            {% if blog.category == 'Technology' %}bg-gray-800
+                            {% elif blog.category == 'Travel' %}bg-green-600
+                            {% elif blog.category == 'Food' %}bg-red-600
+                            {% else %}bg-blue-600{% endif %} rounded-full">
+                            {{ blog.category }}
+                        </span>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center text-sm text-gray-500 mb-3">
+                        <span class="flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                            </svg>
+                            <a href="#" class="hover:text-green-600">{{ blog.author.username }}</a>
+                        </span>
+                        <span class="mx-2">•</span>
+                        <span class="flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            {{ blog.created_at|timesince }} ago
+                        </span>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3 hover:text-green-600 transition-colors">
+                        <a href="{% url 'blog_detail' blog.id %}">{{ blog.title }}</a>
+                    </h3>
+                    <p class="text-gray-600 mb-4">{{ blog.content|truncatewords:20 }}</p>
+                    <div class="flex justify-between items-center">
+                        <a href="{% url 'blog_detail' blog.id %}" class="text-green-600 font-medium hover:text-green-800 inline-flex items-center transition-colors">
+                            Read more
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                            </svg>
+                        </a>
+                        <div class="flex items-center space-x-2">
+                            <span class="text-sm text-gray-500 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                                </svg>
+                                {{ blog.likes.count }}
+                            </span>
+                            <span class="text-sm text-gray-500 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                                </svg>
+                                {{ blog.comments.count }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+        
+        <div class="text-center mt-12">
+            <a href="{% url 'blog_list' %}" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 transition-colors">
+                View All Articles
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+            </a>
+        </div>
+    </div>
+</section>
+        
+        <!-- Popular Categories -->
+<section class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+            <span class="inline-block px-3 py-1 text-sm font-semibold text-primary-700 bg-primary-100 rounded-full mb-4">Categories</span>
+            <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Explore By Topic</h2>
+            <p class="text-lg text-gray-600 max-w-2xl mx-auto">Discover content in your areas of interest</p>
+        </div>
+        
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Technology -->
+            <a href="#" class="group relative overflow-hidden rounded-xl shadow-md h-48">
+                <img src="{% static 'technology.jpg' %}" alt="Technology" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                <div class="absolute bottom-0 left-0 p-6">
+                    <h3 class="text-xl font-bold text-white">Technology</h3>
+                    <p class="text-primary-200">{{ content.technology }} Article{{ content.technology|pluralize }}</p>
+                </div>
+            </a>
+            
+            <!-- Travel -->
+            <a href="#" class="group relative overflow-hidden rounded-xl shadow-md h-48">
+                <img src="{% static 'travel.jpg' %}" alt="Travel" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                <div class="absolute bottom-0 left-0 p-6">
+                    <h3 class="text-xl font-bold text-white">Travel</h3>
+                    <p class="text-primary-200">{{ content.travel }} Article{{ content.travel|pluralize }}</p>
+                </div>
+            </a>
+            
+            <!-- Food -->
+            <a href="#" class="group relative overflow-hidden rounded-xl shadow-md h-48">
+                <img src="{% static 'food.jpg' %}" alt="Food" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                <div class="absolute bottom-0 left-0 p-6">
+                    <h3 class="text-xl font-bold text-white">Food</h3>
+                    <p class="text-primary-200">{{ content.food }} Article{{ content.food|pluralize }}</p>
+                </div>
+            </a>
+            
+            <!-- Business -->
+            <a href="#" class="group relative overflow-hidden rounded-xl shadow-md h-48">
+                <img src="{% static 'business1.jpg' %}" alt="business" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                <div class="absolute bottom-0 left-0 p-6">
+                    <h3 class="text-xl font-bold text-white">Business</h3>
+                    <p class="text-primary-200">{{ content.business }} Article{{ content.business|pluralize }}</p>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

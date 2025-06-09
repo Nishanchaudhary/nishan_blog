@@ -1,0 +1,31 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}About Us{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto bg-white rounded-lg shadow-md p-6">
+    <h1 class="text-2xl font-bold text-gray-800 mb-6">About Our Blog</h1>
+    
+    <div class="prose max-w-none text-gray-700">
+        <p class="mb-4">Welcome to our blog platform, where passionate writers and curious readers come together to share knowledge, stories, and ideas.</p>
+        
+        <h2 class="text-xl font-semibold text-gray-800 mt-6 mb-3">Our Mission</h2>
+        <p class="mb-4">Our mission is to create a space where people can freely express their thoughts, learn from each other, and build a community around shared interests.</p>
+        
+        <h2 class="text-xl font-semibold text-gray-800 mt-6 mb-3">What We Offer</h2>
+        <ul class="list-disc pl-5 mb-4">
+            <li class="mb-2">A platform for writers to publish their work</li>
+            <li class="mb-2">Engaging content across various topics</li>
+            <li class="mb-2">Community interaction through comments and likes</li>
+            <li class="mb-2">User-friendly interface for both readers and writers</li>
+        </ul>
+        
+        <h2 class="text-xl font-semibold text-gray-800 mt-6 mb-3">Our Team</h2>
+        <p class="mb-4">We're a small team of developers and content enthusiasts dedicated to making this platform the best it can be.</p>
+        
+        <div class="bg-gray-50 p-4 rounded-lg mt-8">
+            <p class="text-gray-600">Have questions or suggestions? <a href="{% url 'contact' %}" class="text-green-500 hover:text-green-600 transition duration-300">Contact us</a> - we'd love to hear from you!</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

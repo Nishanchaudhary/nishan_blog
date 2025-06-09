@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+{%load static %}
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Nishan_Blog - Modern Blog Platform{% endblock %}</title>
+
+    <!-- Preload critical resources -->
+    <link rel="preload" href="https://cdn.tailwindcss.com" as="script">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style">
+    <link rel="preload"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap"
+        as="style">
+    <link rel="icon" href="{% static 'logo.png' %}" type="image/png">
+    <!-- Tailwind CSS with custom configuration -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                        dark: {
+                            800: '#1e293b',
+                            900: '#0f172a',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-in-out',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom styles -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+
+        .gradient-text {
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            background-image: linear-gradient(90deg, #3b82f6, #8b5cf6);
+        }
+
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .parallax-bg {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .scroll-indicator {
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateY(0);
+            }
+
+            40% {
+                transform: translateY(-20px);
+            }
+
+            60% {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* Smooth scrolling for anchor links */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        /* Dropdown menu */
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+    </style>
+
+    <!-- Meta tags for SEO and social sharing -->
+    <meta name="description"
+        content="Nishan_Blog is a modern blogging platform for sharing your thoughts, stories, and ideas with the world.">
+    <meta name="keywords" content="blog, writing, articles, stories, technology, travel, lifestyle">
+    <meta property="og:title" content="Nishan_Blog - Modern Blog Platform">
+    <meta property="og:description" content="Share your stories with the world on our beautiful blogging platform.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yourblog.com">
+    <meta property="og:image" content="https://yourblog.com/images/social-share.jpg">
+
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+</head>
+
+<body class="min-h-screen flex flex-col bg-gray-50 antialiased">
+    <!-- Loading indicator -->
+    <div id="loading"
+        class="fixed inset-0 bg-white z-50 flex items-center justify-center transition-opacity duration-300">
+        <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-primary-600"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-40 border-b border-gray-100 transition-all duration-300"
+        id="navbar">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="/" class="text-2xl font-bold text-gray-900">
+                        <span class="gradient-text">Nishan_Blog</span>
+                    </a>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="/" class="text-gray-700 hover:text-primary-600 font-medium transition-all relative group">
+                        Home
+                        <span
+                            class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-600 transition-all group-hover:w-full"></span>
+                    </a>
+                    <a href="/blogs"
+                        class="text-gray-700 hover:text-primary-600 font-medium transition-all relative group">
+                        Blogs
+                        <span
+                            class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-600 transition-all group-hover:w-full"></span>
+                    </a>
+
+                    <a href="/about"
+                        class="text-gray-700 hover:text-primary-600 font-medium transition-all relative group">
+                        About
+                        <span
+                            class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-600 transition-all group-hover:w-full"></span>
+                    </a>
+                    <a href="/contact"
+                        class="text-gray-700 hover:text-primary-600 font-medium transition-all relative group">
+                        Contact
+                        <span
+                            class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-600 transition-all group-hover:w-full"></span>
+                    </a>
+
+                    <div class="flex items-center space-x-4 ml-4">
+
+
+                        {% if user.is_authenticated %}
+                        <!-- User dropdown menu -->
+                        <div class="relative dropdown">
+                            <button class="flex items-center space-x-2 focus:outline-none">
+                                {% if user.profile.image %}
+                                <img class="h-8 w-8 rounded-full object-cover" src="{{ user.profile.image.url }}"
+                                    alt="{{ user.username }}">
+                                {% else %}
+                                <div class="h-8 w-8 rounded-full bg-gray-200 flex items-center justify-center">
+                                    <span class="text-gray-500 text-sm">{{ user.username|first|upper }}</span>
+                                </div>
+                                {% endif %}
+                                <span class="text-gray-700 font-medium">{{ user.username }}</span>
+                                <i class="fas fa-chevron-down text-xs text-gray-500"></i>
+                            </button>
+
+                            <div
+                                class="dropdown-menu absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 hidden">
+                                <a href="{% url 'profile' %}"
+                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors">
+                                    <i class="fas fa-user-circle mr-2"></i> Profile
+                                </a>
+                                <a href="{% url 'create_blog' %}"
+                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors">
+                                    <i class="fas fa-plus mr-2"></i> New Post
+                                </a>
+                                <a href="{% url 'my_blogs' %}"
+                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors">
+                                    <i class="fas fa-book mr-2"></i> My Blogs
+                                </a>
+                                <div class="border-t border-gray-200 my-1"></div>
+                                <form method="post" action="{% url 'logout' %}">
+                                    {% csrf_token %}
+                                    <button type="submit"
+                                        class="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors">
+                                        <i class="fas fa-sign-out-alt mr-2"></i> Sign Out
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                        {% else %}
+                        <a href="{% url 'login' %}?next={{ request.path }}"
+                            class="px-4 py-2 rounded-md text-gray-700 hover:text-primary-600 font-medium transition-all">
+                            Sign In
+                        </a>
+                        <a href="{% url 'register' %}"
+                            class="px-4 py-2 rounded-md bg-gradient-to-r from-primary-600 to-primary-500 text-white font-medium hover:from-primary-700 hover:to-primary-600 transition-all shadow-md hover:shadow-lg">
+                            Get Started
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button
+                        class="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-primary-600 hover:bg-gray-100 focus:outline-none transition-all"
+                        id="mobile-menu-button">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div class="md:hidden hidden bg-white shadow-lg" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="/"
+                    class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary-600 hover:bg-gray-50 transition-all">Home</a>
+                <a href="/blogs"
+                    class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary-600 hover:bg-gray-50 transition-all">Blogs</a>
+                <a href="/about"
+                    class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary-600 hover:bg-gray-50 transition-all">About</a>
+                <a href="/contact"
+                    class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary-600 hover:bg-gray-50 transition-all">Contact</a>
+
+                <div class="pt-4 pb-3 border-t border-gray-200">
+                    {% if user.is_authenticated %}
+                    <div class="flex items-center px-5">
+                        <div class="flex-shrink-0">
+                            {% if user.profile.image %}
+                            <img class="h-10 w-10 rounded-full object-cover" src="{{ user.profile.image.url }}"
+                                alt="{{ user.username }}">
+                            {% else %}
+                            <div class="h-10 w-10 rounded-full bg-gray-200 flex items-center justify-center">
+                                <span class="text-gray-500 text-sm">{{ user.username|first|upper }}</span>
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="ml-3">
+                            <div class="text-base font-medium text-gray-800">{{ user.username }}</div>
+                            <div class="text-sm text-gray-500">{{ user.email }}</div>
+                        </div>
+                    </div>
+                    <div class="mt-3 px-2 space-y-1">
+                        <a href="{% url 'profile' %}"
+                            class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary-600 hover:bg-gray-50 transition-all">
+                            <i class="fas fa-user-circle mr-2"></i> Profile
+                        </a>
+                        <a href="{% url 'create_blog' %}"
+                            class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary-600 hover:bg-gray-50 transition-all">
+                            <i class="fas fa-plus mr-2"></i> New Post
+                        </a>
+                        <a href="{% url 'my_blogs' %}"
+                            class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary-600 hover:bg-gray-50 transition-all">
+                            <i class="fas fa-book mr-2"></i> My Blogs
+                        </a>
+                        <form method="post" action="{% url 'logout' %}">
+                            {% csrf_token %}
+                            <button type="submit"
+                                class="w-full text-left block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary-600 hover:bg-gray-50 transition-all">
+                                <i class="fas fa-sign-out-alt mr-2"></i> Sign Out
+                            </button>
+                        </form>
+                    </div>
+                    {% else %}
+                    <div class="mt-3 px-2 space-y-1">
+                        <a href="{% url 'login' %}?next={{ request.path }}"
+                            class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary-600 hover:bg-gray-50 transition-all">
+                            Sign In
+                        </a>
+                        <a href="{% url 'register' %}"
+                            class="block px-3 py-2 rounded-md text-base font-medium text-primary-600 hover:bg-primary-50 transition-all">
+                            Get Started
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow">
+        <!-- Messages/Alerts Popup -->
+        {% if messages %}
+        <div
+            class="fixed inset-0 flex items-end px-4 py-6 pointer-events-none sm:p-6 sm:items-start sm:justify-end z-50">
+            <div class="w-full flex flex-col items-center space-y-4 sm:items-end">
+                {% for message in messages %}
+                <div
+                    class="max-w-sm w-full shadow-lg rounded-lg pointer-events-auto transition-all duration-300 ease-in-out transform {% if message.tags == 'error' %}bg-red-50 text-red-800{% else %}bg-green-50 text-green-800{% endif %}">
+                    <div class="rounded-lg shadow-xs overflow-hidden">
+                        <div class="p-4">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0">
+                                    {% if message.tags == 'error' %}
+                                    <svg class="h-5 w-5 text-red-400" xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd"
+                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                    {% else %}
+                                    <svg class="h-5 w-5 text-green-400" xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd"
+                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                    {% endif %}
+                                </div>
+                                <div class="ml-3 w-0 flex-1 pt-0.5">
+                                    <p class="text-sm font-medium">{{ message }}</p>
+                                </div>
+                                <div class="ml-4 flex-shrink-0 flex">
+                                    <button
+                                        class="inline-flex text-gray-400 focus:outline-none focus:text-gray-500 transition ease-in-out duration-150"
+                                        onclick="this.parentElement.parentElement.parentElement.parentElement.remove()">
+                                        <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                                            fill="currentColor">
+                                            <path fill-rule="evenodd"
+                                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                                clip-rule="evenodd" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <script>
+            // Auto-dismiss alerts after 5 seconds
+            document.addEventListener('DOMContentLoaded', function () {
+                setTimeout(function () {
+                    const alerts = document.querySelectorAll('[class*="bg-red-50"], [class*="bg-green-50"]');
+                    alerts.forEach(function (alert) {
+                        alert.style.opacity = '0';
+                        setTimeout(() => alert.remove(), 300);
+                    });
+                }, 5000);
+            });
+        </script>
+        {% endif %}
+        {% block content %}
+
+
+        {% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white pt-16 pb-8">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+                <div>
+                    <h3 class="text-2xl font-bold mb-6">
+                        <span class="gradient-text">Nishan_Blog</span>
+                    </h3>
+                    <p class="text-gray-400 mb-6">A modern platform for sharing knowledge, stories, and ideas with the
+                        world.</p>
+                    <div class="flex space-x-4">
+                        <a href="https://x.com/" class="text-gray-400 hover:text-white text-xl transition-colors">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="https://facebook.com/"
+                            class="text-gray-400 hover:text-white text-xl transition-colors">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a href="https://instagram.com/"
+                            class="text-gray-400 hover:text-white text-xl transition-colors">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://linkedin.com/"
+                            class="text-gray-400 hover:text-white text-xl transition-colors">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-semibold mb-6">Quick Links</h4>
+                    <ul class="space-y-3">
+                        <li><a href="/" class="text-gray-400 hover:text-white transition-colors">Home</a></li>
+                        <li><a href="/about" class="text-gray-400 hover:text-white transition-colors">About Us</a></li>
+                        <li><a href="/blogs" class="text-gray-400 hover:text-white transition-colors">Blog</a></li>
+                        <li><a href="/contact" class="text-gray-400 hover:text-white transition-colors">Contact</a></li>
+                        <li><a href="/privacy" class="text-gray-400 hover:text-white transition-colors">Privacy
+                                Policy</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-semibold mb-6">Categories</h4>
+                    <ul class="space-y-3">
+                        <li><a href="/blogs" class="text-gray-400 hover:text-white transition-colors">Technology</a>
+                        </li>
+                        <li><a href="/blogs" class="text-gray-400 hover:text-white transition-colors">Travel</a></li>
+                        <li><a href="/blogs" class="text-gray-400 hover:text-white transition-colors">Food</a></li>
+                        <li><a href="/blogs" class="text-gray-400 hover:text-white transition-colors">Lifestyle</a></li>
+                        <li><a href="/blogs" class="text-gray-400 hover:text-white transition-colors">Business</a></li>
+                    </ul>
+                </div>
+
+                <div class="newsletter-widget">
+                    <h4 class="text-lg font-semibold mb-6">Newsletter</h4>
+                    <p class="text-gray-400 mb-4">Subscribe to our newsletter for the latest updates.</p>
+
+                    <form id="newsletter-form" class="flex">
+                        {% csrf_token %}
+                        <input type="email" name="email" placeholder="Your email"
+                            class="px-4 py-3 rounded-l-lg w-full text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary-500"
+                            required aria-label="Email address">
+                        <button type="submit"
+                            class="bg-primary-600 hover:bg-primary-700 px-4 rounded-r-lg transition-colors flex items-center justify-center"
+                            id="submit-btn" aria-label="Subscribe">
+                            <span id="btn-text">Send</span>
+                            <i class="fas fa-paper-plane ml-2" id="btn-icon"></i>
+                        </button>
+                    </form>
+
+                    <div id="newsletter-message" class="mt-3 text-sm hidden"></div>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-500 text-sm mb-4 md:mb-0">© <span class="current-year"></span> <span
+                        class="gradient-text font-bold">Nishan_Blog</span>. All rights reserved.</p>
+                <div class="flex space-x-6">
+                    <a href="{% url 'terms' %}" class="text-gray-500 hover:text-white text-sm transition-colors">Terms
+                        of Service</a>
+                    <a href="{% url 'privacy' %}"
+                        class="text-gray-500 hover:text-white text-sm transition-colors">Privacy Policy</a>
+                    <a href="{% url 'cookie_policy' %}"
+                        class="text-gray-500 hover:text-white text-sm transition-colors">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top"
+        class="fixed bottom-8 right-8 bg-primary-600 text-white p-3 rounded-full shadow-lg opacity-0 invisible transition-all duration-300 hover:bg-primary-700">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Scripts -->
+    <script>
+        // Loading animation
+        window.addEventListener('load', function () {
+            const loading = document.getElementById('loading');
+            loading.classList.add('opacity-0');
+            setTimeout(() => {
+                loading.classList.add('hidden');
+            }, 300);
+        });
+
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function () {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+            this.querySelector('i').classList.toggle('fa-bars');
+            this.querySelector('i').classList.toggle('fa-times');
+        });
+
+        // Sticky navbar with shadow on scroll
+        window.addEventListener('scroll', function () {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 10) {
+                navbar.classList.add('shadow-md');
+                navbar.classList.remove('shadow-sm');
+            } else {
+                navbar.classList.remove('shadow-md');
+                navbar.classList.add('shadow-sm');
+            }
+        });
+
+        // Back to top button
+        const backToTopButton = document.getElementById('back-to-top');
+        window.addEventListener('scroll', function () {
+            if (window.scrollY > 300) {
+                backToTopButton.classList.remove('opacity-0', 'invisible');
+                backToTopButton.classList.add('opacity-100', 'visible');
+            } else {
+                backToTopButton.classList.remove('opacity-100', 'visible');
+                backToTopButton.classList.add('opacity-0', 'invisible');
+            }
+        });
+
+        backToTopButton.addEventListener('click', function () {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+
+                    // Close mobile menu if open
+                    const mobileMenu = document.getElementById('mobile-menu');
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                        document.getElementById('mobile-menu-button').querySelector('i').classList.toggle('fa-bars');
+                        document.getElementById('mobile-menu-button').querySelector('i').classList.toggle('fa-times');
+                    }
+                }
+            });
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function (event) {
+            const dropdowns = document.querySelectorAll('.dropdown');
+            dropdowns.forEach(dropdown => {
+                if (!dropdown.contains(event.target)) {
+                    const menu = dropdown.querySelector('.dropdown-menu');
+                    if (menu) menu.classList.add('hidden');
+                }
+            });
+        });
+        // Set current year in footer
+        (function () {
+            const year = new Date().getFullYear();
+            document.querySelectorAll('.current-year').forEach(element => {
+                element.textContent = year;
+            });
+        })();
+
+    </script>
+    <script>
+        document.getElementById('newsletter-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const form = e.target;
+            const email = form.email.value.trim();
+            const submitBtn = document.getElementById('submit-btn');
+            const messageDiv = document.getElementById('newsletter-message');
+
+            // Simple client-side validation
+            if (!email) {
+                showMessage(messageDiv, 'Please enter your email address', 'text-red-500');
+                return;
+            }
+
+            // Disable button during submission
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+
+            try {
+                const response = await fetch('/subscribe/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': form.csrfmiddlewaretoken.value
+                    },
+                    body: JSON.stringify({ email }),
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    showMessage(messageDiv, data.message, 'text-green-500');
+                    form.reset();
+                } else {
+                    showMessage(messageDiv, data.message, 'text-red-500');
+                }
+            } catch (error) {
+                showMessage(messageDiv, 'Network error. Please try again later.', 'text-red-500');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i>';
+            }
+        });
+
+        function showMessage(element, message, className) {
+            element.textContent = message;
+            element.className = `mt-2 ${className}`;
+            element.classList.remove('hidden');
+
+            // Hide message after 5 seconds
+            setTimeout(() => {
+                element.classList.add('hidden');
+            }, 5000);
+        }
+    </script>
+
+    <script>
+        // In your template's JavaScript
+        async function handleSubmit(e) {
+            e.preventDefault();
+
+            const email = form.email.value.trim();
+            if (!email) {
+                showMessage('Email address is required', 'error');
+                return;
+            }
+
+            try {
+                const response = await fetch('/subscribe/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': csrfToken
+                    },
+                    body: JSON.stringify({ email })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.message || 'Request failed');
+                }
+
+                showMessage(data.message, 'success');
+                form.reset();
+            } catch (error) {
+                showMessage(
+                    error.message || 'Subscription failed. Please try again.',
+                    'error'
+                );
+            } finally {
+                // Reset UI state
+            }
+        }
+    </script>
+
+</body>
+
+</html>

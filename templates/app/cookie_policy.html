@@ -1,0 +1,78 @@
+{% extends "layout/base.html" %}
+
+{% block title %}Cookie Policy | {{ block.super }}{% endblock %}
+
+{% block content %}
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <!-- Header -->
+        <header class="text-center mb-10 pb-8 border-b border-gray-200">
+            <h1 class="text-4xl font-bold text-gray-800 mb-2"><span class="gradient-text">Nishan_Blog</span></h1>
+            <p class="text-xl text-gray-500 italic mb-4">Share Your Story With The World</p>
+            <p class="text-lg text-gray-500 italic">Join thousands of writers sharing their knowledge, experiences, and creativity on our beautiful platform.</p>
+        </header>
+
+        <!-- Cookie Policy Content -->
+        <div class="prose prose-lg max-w-none">
+            <h1 class="text-3xl font-bold text-gray-800 mb-6">Cookie Policy</h1>
+            
+            <p class="text-gray-600 mb-8">Last Updated: <span id="current-date" class="font-medium"></span></p>
+            
+            <p class="mb-6">This Cookie Policy explains how Nishan_Blog ("we," "us," or "our") uses cookies and similar tracking technologies when you visit our website. By using our site, you consent to our use of cookies in accordance with this policy.</p>
+            
+            <h2 class="text-2xl font-semibold text-gray-800 mt-10 mb-4">1. What Are Cookies?</h2>
+            <p class="mb-6">Cookies are small text files that are stored on your device when you visit a website. They are widely used to make websites work more efficiently, as well as to provide information to the site owners.</p>
+            
+            <h2 class="text-2xl font-semibold text-gray-800 mt-10 mb-4">2. How We Use Cookies</h2>
+            <p class="mb-4">We use cookies for the following purposes:</p>
+            <ul class="list-disc pl-6 mb-6 space-y-2">
+                <li><strong>Essential Cookies:</strong> Necessary for the website to function properly</li>
+                <li><strong>Preference Cookies:</strong> Remember your preferences and settings</li>
+                <li><strong>Analytics Cookies:</strong> Help us understand how visitors interact with our site</li>
+                <li><strong>Marketing Cookies:</strong> Used to track visitors across websites for advertising</li>
+            </ul>
+            
+            <h2 class="text-2xl font-semibold text-gray-800 mt-10 mb-4">3. Types of Cookies We Use</h2>
+            <h3 class="text-xl font-medium text-gray-700 mt-6 mb-3">First-party Cookies</h3>
+            <p class="mb-4">These are set by our website and include:</p>
+            <ul class="list-disc pl-6 mb-6 space-y-2">
+                <li>Session cookies (expire when you close your browser)</li>
+                <li>Persistent cookies (remain until deleted or expired)</li>
+                <li>Authentication cookies</li>
+            </ul>
+            
+            <h3 class="text-xl font-medium text-gray-700 mt-6 mb-3">Third-party Cookies</h3>
+            <p class="mb-6">These are set by services we use, such as:</p>
+            <ul class="list-disc pl-6 mb-6 space-y-2">
+                <li>Google Analytics (for website analytics)</li>
+                <li>Social media platforms (for sharing content)</li>
+                <li>Advertising networks (for relevant ads)</li>
+            </ul>
+            
+            <h2 class="text-2xl font-semibold text-gray-800 mt-10 mb-4">4. Your Cookie Choices</h2>
+            <p class="mb-4">You can control and manage cookies in various ways:</p>
+            <ul class="list-disc pl-6 mb-6 space-y-2">
+                <li><strong>Browser settings:</strong> Most browsers allow you to refuse or delete cookies</li>
+                <li><strong>Opt-out tools:</strong> Available for many third-party cookies</li>
+                <li><strong>Our consent banner:</strong> When first visiting our site</li>
+            </ul>
+            
+            <p class="mb-6">Please note that disabling cookies may affect your experience and some features may not work properly.</p>
+            
+            <h2 class="text-2xl font-semibold text-gray-800 mt-10 mb-4">5. Changes to This Policy</h2>
+            <p class="mb-6">We may update this Cookie Policy from time to time. We will notify you of any changes by posting the new policy on this page.</p>
+            
+            <h2 class="text-2xl font-semibold text-gray-800 mt-10 mb-4">6. Contact Us</h2>
+            <p class="mb-10">If you have questions about our use of cookies, please contact us at <a href="mailto:privacy@nishanblog.com" class="text-blue-600 hover:text-blue-800 hover:underline">privacy@nishanblog.com</a>.</p>
+            
+            <div class="text-sm text-gray-500 text-right mt-12">Last updated: <span id="current-date-footer"></span></div>
+        </div>
+    </div>
+
+    <script>
+        // Set current date
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        const currentDate = new Date().toLocaleDateString('en-US', options);
+        document.getElementById('current-date').textContent = currentDate;
+        document.getElementById('current-date-footer').textContent = currentDate;
+    </script>
+{% endblock %}

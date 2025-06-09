@@ -1,0 +1,103 @@
+{% extends "layout/base.html" %}
+
+{% block title %}Terms of Service | {{ block.super }}{% endblock %}
+
+{% block content %}
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <!-- Header -->
+        <header class="text-center mb-10 pb-8 border-b border-gray-200">
+            <h1 class="text-4xl font-bold text-gray-800 mb-2"><span class="gradient-text">Nishan_Blog</span></h1>
+            <p class="text-xl text-gray-500 italic mb-4">Share Your Story With The World</p>
+            <p class="text-lg text-gray-500 italic">Join thousands of writers sharing their knowledge, experiences, and creativity on our beautiful platform.</p>
+        </header>
+
+        <!-- Terms of Service Content -->
+        <div class="prose prose-lg max-w-none">
+            <h1 class="text-3xl font-bold text-gray-800 mb-6">Terms of Service</h1>
+            
+            <p class="text-gray-600 mb-8">Last Updated: <span id="current-date" class="font-medium"></span></p>
+            
+            <p class="mb-6">Welcome to Nishan_Blog ("we," "our," or "us"). These Terms of Service ("Terms") govern your access to and use of our website and services. By accessing or using our platform, you agree to be bound by these Terms.</p>
+            
+            <h2 class="text-2xl font-semibold text-gray-800 mt-10 mb-4">1. Acceptance of Terms</h2>
+            <p class="mb-6">By using Nishan_Blog, you confirm that you have read, understood, and agree to be bound by these Terms. If you do not agree, you may not access or use our services.</p>
+            
+            <h2 class="text-2xl font-semibold text-gray-800 mt-10 mb-4">2. User Accounts</h2>
+            <h3 class="text-xl font-medium text-gray-700 mt-6 mb-3">Registration</h3>
+            <p class="mb-4">To access certain features, you must register for an account. You agree to:</p>
+            <ul class="list-disc pl-6 mb-6 space-y-2">
+                <li>Provide accurate and complete information</li>
+                <li>Maintain the security of your credentials</li>
+                <li>Be responsible for all activities under your account</li>
+            </ul>
+            
+            <h3 class="text-xl font-medium text-gray-700 mt-6 mb-3">Account Termination</h3>
+            <p class="mb-6">We reserve the right to suspend or terminate accounts that violate these Terms or engage in harmful behavior.</p>
+            
+            <h2 class="text-2xl font-semibold text-gray-800 mt-10 mb-4">3. User Content</h2>
+            <h3 class="text-xl font-medium text-gray-700 mt-6 mb-3">Your Rights</h3>
+            <p class="mb-4">You retain ownership of content you create and share on our platform. By posting content, you grant us:</p>
+            <ul class="list-disc pl-6 mb-6 space-y-2">
+                <li>A worldwide, non-exclusive license to use, display, and distribute your content</li>
+                <li>The right to make your content available to other users</li>
+                <li>The right to use your content for promotional purposes</li>
+            </ul>
+            
+            <h3 class="text-xl font-medium text-gray-700 mt-6 mb-3">Content Standards</h3>
+            <p class="mb-4">You agree not to post content that:</p>
+            <ul class="list-disc pl-6 mb-6 space-y-2">
+                <li>Violates any laws or infringes intellectual property rights</li>
+                <li>Contains hate speech, harassment, or threats</li>
+                <li>Is sexually explicit or pornographic</li>
+                <li>Contains viruses or malicious code</li>
+                <li>Promotes illegal activities</li>
+            </ul>
+            
+            <h2 class="text-2xl font-semibold text-gray-800 mt-10 mb-4">4. Intellectual Property</h2>
+            <p class="mb-6">All platform content (except user-generated content) including logos, designs, and software are our property or licensed to us. You may not use our trademarks without prior written permission.</p>
+            
+            <h2 class="text-2xl font-semibold text-gray-800 mt-10 mb-4">5. Prohibited Conduct</h2>
+            <p class="mb-4">You agree not to:</p>
+            <ul class="list-disc pl-6 mb-6 space-y-2">
+                <li>Use the service for illegal purposes</li>
+                <li>Attempt to gain unauthorized access to our systems</li>
+                <li>Interfere with the service's operation</li>
+                <li>Use automated systems to access the service (except APIs)</li>
+                <li>Impersonate others or misrepresent affiliations</li>
+            </ul>
+            
+            <h2 class="text-2xl font-semibold text-gray-800 mt-10 mb-4">6. Termination</h2>
+            <p class="mb-6">We may terminate or suspend your access to the service at our discretion, without notice, for conduct that violates these Terms or is harmful to others.</p>
+            
+            <h2 class="text-2xl font-semibold text-gray-800 mt-10 mb-4">7. Disclaimers</h2>
+            <p class="mb-4">The service is provided "as is" without warranties of any kind. We do not guarantee that:</p>
+            <ul class="list-disc pl-6 mb-6 space-y-2">
+                <li>The service will be uninterrupted or error-free</li>
+                <li>Content will be accurate or reliable</li>
+                <li>Defects will be corrected</li>
+            </ul>
+            
+            <h2 class="text-2xl font-semibold text-gray-800 mt-10 mb-4">8. Limitation of Liability</h2>
+            <p class="mb-6">To the maximum extent permitted by law, we shall not be liable for any indirect, incidental, or consequential damages arising from your use of the service.</p>
+            
+            <h2 class="text-2xl font-semibold text-gray-800 mt-10 mb-4">9. Governing Law</h2>
+            <p class="mb-6">These Terms shall be governed by the laws of [Your Country/State] without regard to conflict of law principles.</p>
+            
+            <h2 class="text-2xl font-semibold text-gray-800 mt-10 mb-4">10. Changes to Terms</h2>
+            <p class="mb-6">We may modify these Terms at any time. Continued use after changes constitutes acceptance of the new Terms.</p>
+            
+            <h2 class="text-2xl font-semibold text-gray-800 mt-10 mb-4">11. Contact Information</h2>
+            <p class="mb-10">For questions about these Terms, please contact us at <a href="mailto:legal@nishanblog.com" class="text-blue-600 hover:text-blue-800 hover:underline">legal@nishanblog.com</a>.</p>
+            
+            <div class="text-sm text-gray-500 text-right mt-12">Last updated: <span id="current-date-footer"></span></div>
+        </div>
+    </div>
+
+    <script>
+        // Set current date
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        const currentDate = new Date().toLocaleDateString('en-US', options);
+        document.getElementById('current-date').textContent = currentDate;
+        document.getElementById('current-date-footer').textContent = currentDate;
+    </script>
+{% endblock %}
