@@ -5,10 +5,11 @@ Welcome to Nishan's Blog repository! This repository contains the source code an
 ## Features
 
 - Personal blog with articles, thoughts, and projects
-- Built with [HTML,CSS,PYTHON,DJANGO etc.] 
+- Built with [HTML,TAILWINDCSSCSS,PYTHON,DJANGO etc.] 
 - Responsive design for all devices
 - login,register,logout and user authentication,authorizations etc,
 - blog create ,edit,delete search,like,and comment feature
+- etc..............
   
 ### Installation
 
