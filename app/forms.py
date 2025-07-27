@@ -2,6 +2,8 @@ from django import forms
 from .models import *
 from django.contrib.auth.forms import UserChangeForm
 from django.contrib.auth.forms import UserCreationForm
+from django_summernote.widgets import SummernoteWidget
+
 
 
 class UserForm(UserCreationForm):
@@ -50,9 +52,9 @@ class ProfileUpdateForm(UserChangeForm):
 class BlogForm(forms.ModelForm):
     class Meta:
         model = Blog
-        fields = ['title', 'content', 'category', 'created_at', 'image']
+        fields = ['title', 'content', 'category', 'image', 'created_at']
         widgets = {
-            'content': forms.Textarea(attrs={'rows': 5}),
+            'content': SummernoteWidget(),
             'created_at': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
         }
 

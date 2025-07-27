@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-*b(l**29r=mjs6y9z6%-kuy_ja9mf$z5a@k6k_mh5zwu3u5b(+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.vercel.app']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -41,12 +41,19 @@ INSTALLED_APPS = [
 
 EXTERNAL_APPS = [
     'app',
+    'django_summernote',
+
 ]
 
 INSTALLED_APPS.extend(EXTERNAL_APPS)
 
-
-
+SUMMERNOTE_CONFIG = {
+    'iframe': True,
+    'summernote': {
+        'width': '100%',
+        'height': '480px',
+    }
+}
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -88,6 +95,16 @@ DATABASES = {
     }
 }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'blog',
+#         'USER': 'root',  # Make sure this is correct
+#         'PASSWORD': '',  # Verify this password
+#         'HOST': 'localhost',
+#         'PORT': '3306',
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators

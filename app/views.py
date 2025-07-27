@@ -371,7 +371,7 @@ def privacy_policy(request):
     return render(request, 'app/privacy_policy.html')
 
 def terms_of_service(request):
-    return render(request, 'app/terms_of_service.html')
+    return render(request, 'app/terms_of_service .html')
 
 def cookie_policy(request):
     return render(request, 'app/cookie_policy.html')

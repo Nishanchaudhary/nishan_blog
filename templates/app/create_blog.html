@@ -2,6 +2,7 @@
 
 {% block title %}Create Blog Post{% endblock %}
 
+
 {% block content %}
 <div class="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
     <div class="max-w-3xl mx-auto">
@@ -86,16 +87,11 @@
                     </div>
 
                     <!-- Content Field -->
-                    <div>
-                        <label for="{{ form.content.id_for_label }}"
-                            class="block text-sm font-medium text-gray-700 mb-1">
+                   <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">
                             Content <span class="text-red-500">*</span>
                         </label>
-                        <div class="mt-1">
-                            <textarea name="content" id="id_content" rows="8"
-                                class="{% if form.content.errors %}border-red-300 text-red-900 placeholder-red-300 focus:ring-red-500 focus:border-red-500{% else %}border-gray-300 focus:ring-indigo-500 focus:border-indigo-500{% endif %} block w-full pl-3 pr-10 py-2 border rounded-md shadow-sm focus:outline-none sm:text-sm"
-                                required>{{ form.content.value|default_if_none:'' }}</textarea>
-                        </div>
+                        {{ form.content }}
                         {% if form.content.errors %}
                         <p class="mt-2 text-sm text-red-600">{{ form.content.errors.0 }}</p>
                         {% endif %}
@@ -236,4 +232,5 @@
         }
     });
 </script>
+
 {% endblock %}

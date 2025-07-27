@@ -34,7 +34,7 @@
 
         <!-- Blog Content -->
         <div class="prose max-w-none text-gray-700 mb-8">
-            {{ blog.content|linebreaks }}
+            {{ blog.content|striptags|linebreaks }}
         </div>
 
         <!-- Action Buttons at Bottom -->

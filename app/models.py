@@ -4,6 +4,7 @@ from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import User
 from django.urls import reverse
 from django.core.validators import validate_email
+from django.utils.safestring import mark_safe
 
 # Create your models here.
 
@@ -65,6 +66,8 @@ class Blog(models.Model):
     
     def __str__(self):
         return self.title
+    def get_content(self):
+        return mark_safe(self.content)
 
 class Comment(models.Model):
     blog = models.ForeignKey(Blog, on_delete=models.CASCADE, related_name='comments')

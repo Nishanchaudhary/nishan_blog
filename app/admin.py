@@ -1,18 +1,20 @@
 from django.contrib import admin
 from .models import *
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from django_summernote.admin import SummernoteModelAdmin  # Add this import
 
 # Register your models here.
 
-class BlogAdmin(admin.ModelAdmin):
+class BlogAdmin(SummernoteModelAdmin):  # Changed from ModelAdmin to SummernoteModelAdmin
     list_display = ('title', 'author', 'category', 'created_at')
     search_fields = ('title', 'content', 'author__username')
     list_filter = ('category', 'created_at')
+    summernote_fields = ('content',)  # Add this line to enable Summernote for content field
 
 @admin.register(Contact)
 class ContactAdmin(admin.ModelAdmin):
     list_display = ('name', 'email', 'subject', 'message', 'created_at')
-    list_filter = ('email', 'created_at')  # Only use actual field names here
+    list_filter = ('email', 'created_at')
     search_fields = ('name', 'email', 'subject')
 
 class CommentAdmin(admin.ModelAdmin):
@@ -38,8 +40,8 @@ class UserAdmin(BaseUserAdmin):
 
 @admin.register(Subscriber)
 class SubscriberAdmin(admin.ModelAdmin):
-    list_display = ('email', 'created_at', 'is_active')  # Use created_at instead of subscribed_at
-    list_filter = ('created_at', 'is_active')  # Use created_at instead of subscribed_at
+    list_display = ('email', 'created_at', 'is_active')
+    list_filter = ('created_at', 'is_active')
     search_fields = ('email',)
     ordering = ('-created_at',)
 
